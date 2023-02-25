@@ -14,7 +14,9 @@ git commit
 
 - Not right now :smiley:
 
-## Contributions 
+## Progress
+
+![This is proyect progress as an image](/organizador-con-16-gavetas-truper-a12.jpg)
 
 ## Contact 
 One of the first proyect from the author of this repository, this read me will not be perfect but it will contain some important information about the proyect.
