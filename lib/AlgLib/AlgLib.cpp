@@ -1,4 +1,4 @@
-#include "Alg4bit.h"
+#include "AlgLib.h"
 
 void SeleCombo(int count, char ret[10])
 {
