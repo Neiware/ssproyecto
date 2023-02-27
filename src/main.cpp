@@ -8,6 +8,7 @@ void setup() {
    SeleCombo(1,str);
   printf("se, %s", str);
   scanf("bith %d", &mano);
+//new commento to test branch master
 
 }
 
