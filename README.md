@@ -17,6 +17,12 @@ git merge
 - Not right now :smiley:
 
 ## Progress
+- [x]  Set Base Code Platformio
+- [ ] LCD-Test
+- [ ] SD-Test
+- [ ] Speaker-Test
+- [ ] MUX-Test
+- [ ] Merging Code each test
 
 ![This is proyect progress as an image](/organizador-con-16-gavetas-truper-a12.jpg)x
 
