@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <LiquidCrystal_I2C.h> //library for communication I2C with LCD
+#include <TMRpcm.h> // library for SD and Speaker communicatios.
 //----------------MACROS----------------------//
 
 //---Outputs for Mux---//
