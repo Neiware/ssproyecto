@@ -47,7 +47,23 @@ void setup() {
   Audio.quality(1); // Improve quality of the sound, but i think will consume more power and time for instruction
   Audio.setVolume(5); // Select volume from 0 to 7
   */
- 
+  //SETUP SD 
+  if (SD.begin(SD_ChipSelecPin)) //check if SD.begin is working. .being return boolean
+  {
+    //YES IS WORKING 
+    //Maybe add sound or show response in the LCD
+  }else{
+    //NOT WORKING 
+    //Display Eror to the user and reset the whole program
+  }
+  
+
+  //------------------TEST SD ADN SPEAKER ONLY------------------//
+  //Audio.play("Name of the file.wav"); Function is to play the file selecting a file
+                                      // I still need to get the SD and add files so
+                                      //not ready yet
+  delay(3000);
+  Audio.pause();// Method to pause the audio, the delay is to check how this methods works during runtime
 //new commento to test branch master
 
 }
