@@ -11,14 +11,14 @@
 #include <SD.h>
 
 //----------------MACROS----------------------//
-/*
+
 //---Outputs for Mux---//
 #define MUX_A 2 
 #define MUX_B 3
 #define MUX_C 4
 #define MUX_D 5
 //---Input for Mux---//
-#define MUX_Y 6*/
+#define MUX_Y 6
 //---Modulo SD-------//
 #define SD_ChipSelecPin 10 // Pin 10 is gonna be CS for the SD Module 
 #define SD_SCK 13
@@ -31,7 +31,6 @@
 #define I2C_SDA A4
 #define I2C_SCL A5
 //------------TESTING LCD--------------//
-
 uint8_t bell[8]  = {0x4,0xe,0xe,0xe,0x1f,0x0,0x4};
 uint8_t note[8]  = {0x2,0x3,0x2,0xe,0x1e,0xc,0x0};
 uint8_t clock[8] = {0x0,0xe,0x15,0x17,0x11,0xe,0x0};
@@ -43,6 +42,9 @@ uint8_t retarrow[8] = {	0x1,0x1,0x5,0x9,0x1f,0x8,0x4};
 //----------CREATE OBJEXTS------//
 //OBJECT CALL lcd using external library
 LiquidCrystal_I2C lcd(0x27,20,4);
+TMRpcm Audio; //object for TMRpcm library
+
+
 //-----------FUNCTIONS--------------//
 // display all keycodes
 void displayKeyCodes(void) {
@@ -62,10 +64,6 @@ void displayKeyCodes(void) {
 }
 
 
-//----------CREATE OBJEXTS------//
-//OBJECT CALL lcd using external library
-//LiquidCrystal_I2C lcd(0x27,20,4);
-TMRpcm Audio; //object for TMRpcm library
 
 void setup() {
   Serial.begin(9600);
@@ -80,7 +78,7 @@ void setup() {
     //NOT WORKING 
     //Display Eror to the user and reset the whole program
   }
-  /*// SETUP I/O FOR MUX
+  // SETUP I/O FOR MUX
   pinMode(MUX_A,OUTPUT);
   pinMode(MUX_B,OUTPUT);
   pinMode(MUX_C,OUTPUT);
@@ -90,7 +88,7 @@ void setup() {
   digitalWrite(MUX_A,LOW);
   digitalWrite(MUX_B,LOW);
   digitalWrite(MUX_C,LOW);
-  digitalWrite(MUX_D,LOW);*/
+  digitalWrite(MUX_D,LOW);
   // SETUP I2C FOR LCD WITH LIBRARY INCLUDED
   lcd.init();
   lcd.backlight();
