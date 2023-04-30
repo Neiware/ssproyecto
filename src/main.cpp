@@ -1,14 +1,14 @@
 #include <Arduino.h>
 #include <LiquidCrystal_I2C.h> //library for communication I2C with LCD
+#include <TMRpcm.h> // library for SD and Speaker communicatios.
+#include <SPI.h>
+#include <SD.h>
 #if defined(ARDUINO) && ARDUINO >= 100
 #define printByte(args)  write(args);
 #else
 #define printByte(args)  print(args,BYTE);
 #endif
-//----------------MACROS----------------------//
-#include <TMRpcm.h> // library for SD and Speaker communicatios.
-#include <SPI.h>
-#include <SD.h>
+
 
 //----------------MACROS----------------------//
 
@@ -47,6 +47,9 @@ TMRpcm Audio; //object for TMRpcm library
 
 //-----------FUNCTIONS--------------//
 // display all keycodes
+bool Movimiento_Bits(int n);
+void LCD_Select();
+void Bocina_Select(int n);
 void displayKeyCodes(void) {
   uint8_t i = 0;
   while (1) {
@@ -64,6 +67,7 @@ void displayKeyCodes(void) {
 }
 
 
+//------------GLOBAL VARIABLES-------------//
 
 void setup() {
   Serial.begin(9600);
@@ -109,7 +113,7 @@ void setup() {
   lcd.printByte(3);
   lcd.print(" arduinos!");
   delay(5000);
-  displayKeyCodes();
+  //displayKeyCodes();
   //SETUP SPEAKER
   Audio.speakerPin = BOCINA_PWM; //select pin connected from arduino to speaker 
 
@@ -120,7 +124,7 @@ void setup() {
   
 
   //------------------TEST SD ADN SPEAKER ONLY------------------//
-  Audio.play("Toni.wav"); //Function is to play the file selecting a file
+ // Audio.play("Toni.wav"); //Function is to play the file selecting a file
                                       // I still need to get the SD and add files so
                                       //not ready yet
 
@@ -128,7 +132,92 @@ void setup() {
 //new commento to test branch master
 
 }
+int n = 0;
 
 void loop() { 
   // put your main code here, to run repeatedly:
+  if(Movimiento_Bits(n)== true){
+    LCD_Select();
+    Bocina_Select(n);
+    delay(500);
+  }
+
+    if(n == 15){
+    n = 0;
+  }else{
+    Serial.print("Value of n is ");
+    Serial.println(n);
+
+    n++;  
+  }
+}
+
+bool Movimiento_Bits(int n){
+  switch (n)
+  {
+  case 0:
+    digitalWrite(MUX_A,LOW);
+    digitalWrite(MUX_B,LOW);
+    digitalWrite(MUX_C,LOW);
+    digitalWrite(MUX_D,LOW);
+    break;
+  case 1:
+    digitalWrite(MUX_A,HIGH);
+    digitalWrite(MUX_B,LOW);
+    digitalWrite(MUX_C,LOW);
+    digitalWrite(MUX_D,LOW);
+    break;
+  case 2:
+    digitalWrite(MUX_A,LOW);
+    digitalWrite(MUX_B,HIGH);
+    digitalWrite(MUX_C,LOW);
+    digitalWrite(MUX_D,LOW);
+    break;
+  case 3:
+    digitalWrite(MUX_A,HIGH);
+    digitalWrite(MUX_B,HIGH);
+    digitalWrite(MUX_C,LOW);
+    digitalWrite(MUX_D,LOW);
+    break;
+  case 4:
+    digitalWrite(MUX_A,LOW);
+    digitalWrite(MUX_B,LOW);
+    digitalWrite(MUX_C,HIGH);
+    digitalWrite(MUX_D,LOW);
+    break;
+
+  default:
+    break;
+  }
+  if(digitalRead(MUX_Y) == false){
+    return true;
+  }else{
+    return false;
+  }
+}
+void LCD_Select(){
+return;
+}
+void Bocina_Select(int n){
+  switch (n)
+  {
+  case 0:
+    Serial.println("Auidio 0");
+    break;
+  case 1:
+    Serial.println("Auidio 1");
+    break;
+  case 2:
+    Serial.println("Auidio 2");
+    break;
+  case 3:
+    Serial.println("Auidio 3");
+    break;
+  case 4:
+    Serial.println("Auidio 4");
+    break;
+
+  default:
+    break;
+  }
 }
