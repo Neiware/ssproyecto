@@ -39,9 +39,11 @@ uint8_t duck[8]  = {0x0,0xc,0x1d,0xf,0xf,0x6,0x0};
 uint8_t check[8] = {0x0,0x1,0x3,0x16,0x1c,0x8,0x0};
 uint8_t cross[8] = {0x0,0x1b,0xe,0x4,0xe,0x1b,0x0};
 uint8_t retarrow[8] = {	0x1,0x1,0x5,0x9,0x1f,0x8,0x4};
+LiquidCrystal_I2C lcd(0x27,20,4);
+TMRpcm Audio; //object for TMRpcm library
 
 //----------------OWN CLASS -----------------------//
-class combo
+class Combos
 {
 private:
   /* data */
@@ -50,7 +52,8 @@ private:
   String lcdText;
   
 public:
-  combo(bool A_,bool B_,bool C_,bool D_, String audioFile_, String lcdText_){
+//constructor parametros A,B,C,D definen en binario el numero de combinacion. 
+  Combos(bool A_,bool B_,bool C_,bool D_, String audioFile_, String lcdText_){
     A = A_;
     B = B_;
     C = C_;
@@ -68,16 +71,22 @@ public:
     Serial.println(audioFile);
   }
   void Printlcd(){
-    Serial.println(lcdText);
+    lcd.clear();
+    lcd.home();
+    lcd.print(lcdText);
   }
 };
 
 
 //----------CREATE OBJEXTS------//
 //OBJECT CALL lcd using external library
-LiquidCrystal_I2C lcd(0x27,20,4);
-TMRpcm Audio; //object for TMRpcm library
 
+
+Combos combo0(LOW,LOW,LOW,LOW,"Audio0","Resistencia0");
+Combos combo1(HIGH,LOW,LOW,LOW,"Audio1","Resistencia1");
+Combos combo2(LOW,HIGH,LOW,LOW,"Audio2","Resistencia2");
+Combos combo3(HIGH,HIGH,LOW,LOW,"Audio3","Resistencia3");
+Combos combo4(LOW,LOW,HIGH,LOW,"Audio4","Resistencia4");
 
 //-----------FUNCTIONS--------------//
 // display all keycodes
@@ -190,34 +199,19 @@ bool Movimiento_Bits(int n){
   switch (n)
   {
   case 0:
-    digitalWrite(MUX_A,LOW);
-    digitalWrite(MUX_B,LOW);
-    digitalWrite(MUX_C,LOW);
-    digitalWrite(MUX_D,LOW);
+    combo0.WriteMux();
     break;
   case 1:
-    digitalWrite(MUX_A,HIGH);
-    digitalWrite(MUX_B,LOW);
-    digitalWrite(MUX_C,LOW);
-    digitalWrite(MUX_D,LOW);
+    combo1.WriteMux();
     break;
   case 2:
-    digitalWrite(MUX_A,LOW);
-    digitalWrite(MUX_B,HIGH);
-    digitalWrite(MUX_C,LOW);
-    digitalWrite(MUX_D,LOW);
+    combo2.WriteMux();
     break;
   case 3:
-    digitalWrite(MUX_A,HIGH);
-    digitalWrite(MUX_B,HIGH);
-    digitalWrite(MUX_C,LOW);
-    digitalWrite(MUX_D,LOW);
+    combo3.WriteMux();
     break;
   case 4:
-    digitalWrite(MUX_A,LOW);
-    digitalWrite(MUX_B,LOW);
-    digitalWrite(MUX_C,HIGH);
-    digitalWrite(MUX_D,LOW);
+    combo4.WriteMux();
     break;
 
   default:
@@ -230,25 +224,46 @@ bool Movimiento_Bits(int n){
   }
 }
 void LCD_Select(){
-return;
+  switch (n)
+  {
+  case 0:
+    combo0.Printlcd();
+    break;
+  case 1:
+    combo1.Printlcd();
+    break;
+  case 2:
+    combo2.Printlcd();
+    break;
+  case 3:
+    combo3.Printlcd();
+    break;
+  case 4:
+    combo4.Printlcd();
+    break;
+
+  default:
+    break;
+  }
+
 }
 void Bocina_Select(int n){
   switch (n)
   {
   case 0:
-    Serial.println("Auidio 0");
+    combo0.PlayAudio();
     break;
   case 1:
-    Serial.println("Auidio 1");
+    combo1.PlayAudio();
     break;
   case 2:
-    Serial.println("Auidio 2");
+    combo2.PlayAudio();
     break;
   case 3:
-    Serial.println("Auidio 3");
+    combo3.PlayAudio();
     break;
   case 4:
-    Serial.println("Auidio 4");
+    combo4.PlayAudio();
     break;
 
   default:
