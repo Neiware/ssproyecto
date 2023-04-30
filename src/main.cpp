@@ -39,6 +39,40 @@ uint8_t duck[8]  = {0x0,0xc,0x1d,0xf,0xf,0x6,0x0};
 uint8_t check[8] = {0x0,0x1,0x3,0x16,0x1c,0x8,0x0};
 uint8_t cross[8] = {0x0,0x1b,0xe,0x4,0xe,0x1b,0x0};
 uint8_t retarrow[8] = {	0x1,0x1,0x5,0x9,0x1f,0x8,0x4};
+
+//----------------OWN CLASS -----------------------//
+class combo
+{
+private:
+  /* data */
+  bool A,B,C,D;
+  String audioFile;
+  String lcdText;
+  
+public:
+  combo(bool A_,bool B_,bool C_,bool D_, String audioFile_, String lcdText_){
+    A = A_;
+    B = B_;
+    C = C_;
+    D = D_;
+    audioFile = audioFile_;
+    lcdText = lcdText_;
+  }
+  void WriteMux(){
+    digitalWrite(MUX_A,A);
+    digitalWrite(MUX_B,B);
+    digitalWrite(MUX_C,C);
+    digitalWrite(MUX_D,D);
+  }
+  void PlayAudio(){
+    Serial.println(audioFile);
+  }
+  void Printlcd(){
+    Serial.println(lcdText);
+  }
+};
+
+
 //----------CREATE OBJEXTS------//
 //OBJECT CALL lcd using external library
 LiquidCrystal_I2C lcd(0x27,20,4);
