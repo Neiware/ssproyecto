@@ -31,14 +31,6 @@
 #define I2C_SDA A4
 #define I2C_SCL A5
 //------------TESTING LCD--------------//
-uint8_t bell[8]  = {0x4,0xe,0xe,0xe,0x1f,0x0,0x4};
-uint8_t note[8]  = {0x2,0x3,0x2,0xe,0x1e,0xc,0x0};
-uint8_t clock[8] = {0x0,0xe,0x15,0x17,0x11,0xe,0x0};
-uint8_t heart[8] = {0x0,0xa,0x1f,0x1f,0xe,0x4,0x0};
-uint8_t duck[8]  = {0x0,0xc,0x1d,0xf,0xf,0x6,0x0};
-uint8_t check[8] = {0x0,0x1,0x3,0x16,0x1c,0x8,0x0};
-uint8_t cross[8] = {0x0,0x1b,0xe,0x4,0xe,0x1b,0x0};
-uint8_t retarrow[8] = {	0x1,0x1,0x5,0x9,0x1f,0x8,0x4};
 LiquidCrystal_I2C lcd(0x27,20,4);
 TMRpcm Audio; //object for TMRpcm library
 
@@ -54,7 +46,8 @@ private:
   
 public:
 //constructor parametros A,B,C,D definen en binario el numero de combinacion. 
-  Combos(bool A_,bool B_,bool C_,bool D_, String audioFile_, String lcdText_){
+  Combos(bool A_,bool B_,bool C_,bool D_, String audioFile_, String lcdText_)
+  {
     A = A_;
     B = B_;
     C = C_;
@@ -62,31 +55,31 @@ public:
     audioFile = audioFile_;
     lcdText = lcdText_;
   }
-  void WriteMux(){
+  void WriteMux()
+  {
     digitalWrite(MUX_A,A);
     digitalWrite(MUX_B,B);
     digitalWrite(MUX_C,C);
     digitalWrite(MUX_D,D);
   }
-  void PlayAudio(int m){
+  void PlayAudio(int m)
+  {
     bool reading;
     while (Audio.isPlaying() == true || reading == true)
     {
-    Serial.println(audioFile);
-    reading = digitalRead(MUX_Y);
+      Serial.println(audioFile);
+      reading = digitalRead(MUX_Y);
     }
-    }
+  }
   
-  void Printlcd(){
+  void Printlcd()
+  {
     Serial.println("holaJ?");
     lcd.clear();
     lcd.home();
     lcd.print(lcdText);
   }
-   
 };
-
-
 //----------CREATE OBJEXTS------//
 //OBJECT CALL lcd using external library
 
@@ -102,21 +95,6 @@ Combos combo4(LOW,LOW,HIGH,LOW,"Audio4","Resistencia4");
 bool Movimiento_Bits(int n);
 void LCD_Select();
 void Bocina_Select(int n);
-void displayKeyCodes(void) {
-  uint8_t i = 0;
-  while (1) {
-    lcd.clear();
-    lcd.print("Codes 0x"); lcd.print(i, HEX);
-    lcd.print("-0x"); lcd.print(i+15, HEX);
-    lcd.setCursor(0, 1);
-    for (int j=0; j<16; j++) {
-      lcd.printByte(i+j);
-    }
-    i+=16;
-    
-    delay(4000);
-  }
-}
 
 
 //------------GLOBAL VARIABLES-------------//
@@ -148,15 +126,6 @@ void setup() {
   // SETUP I2C FOR LCD WITH LIBRARY INCLUDED
   lcd.init();
   lcd.backlight();
-
-  lcd.createChar(0, bell);
-  lcd.createChar(1, note);
-  lcd.createChar(2, clock);
-  lcd.createChar(3, heart);
-  lcd.createChar(4, duck);
-  lcd.createChar(5, check);
-  lcd.createChar(6, cross);
-  lcd.createChar(7, retarrow);
   lcd.home();
 
   lcd.print("Hello world...");
@@ -168,7 +137,6 @@ void setup() {
   //displayKeyCodes();
   //SETUP SPEAKER
   Audio.speakerPin = BOCINA_PWM; //select pin connected from arduino to speaker 
-
   Audio.quality(1); // Improve quality of the sound, but i think will consume more power and time for instruction
   Audio.setVolume(5); // Select volume from 0 to 7
  
@@ -200,13 +168,9 @@ void loop() {
     Bocina_Select(n);
     delay(200);
   }
-
-
-    
 }
-
-bool Movimiento_Bits(int n){
-
+bool Movimiento_Bits(int n)
+{
   switch (n)
   {
   case 0:
@@ -234,7 +198,8 @@ bool Movimiento_Bits(int n){
     return false;
   }
 }
-void LCD_Select(){
+void LCD_Select()
+{
   switch (n)
   {
   case 0:
