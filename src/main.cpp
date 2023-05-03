@@ -50,6 +50,7 @@ private:
   bool A,B,C,D;
   String audioFile;
   String lcdText;
+
   
 public:
 //constructor parametros A,B,C,D definen en binario el numero de combinacion. 
@@ -67,14 +68,22 @@ public:
     digitalWrite(MUX_C,C);
     digitalWrite(MUX_D,D);
   }
-  void PlayAudio(){
+  void PlayAudio(int m){
+    bool reading;
+    while (Audio.isPlaying() == true || reading == true)
+    {
     Serial.println(audioFile);
-  }
+    reading = digitalRead(MUX_Y);
+    }
+    }
+  
   void Printlcd(){
+    Serial.println("holaJ?");
     lcd.clear();
     lcd.home();
     lcd.print(lcdText);
   }
+   
 };
 
 
@@ -162,7 +171,6 @@ void setup() {
 
   Audio.quality(1); // Improve quality of the sound, but i think will consume more power and time for instruction
   Audio.setVolume(5); // Select volume from 0 to 7
-  
  
   
 
@@ -179,23 +187,26 @@ int n = 0;
 
 void loop() { 
   // put your main code here, to run repeatedly:
-  if(Movimiento_Bits(n)== true){
+  if(n <= 2){
+      Serial.print("Value of n is ");
+    Serial.println(n);
+    n++;
+  }else{
+       n = 0;
+       Serial.println("End loop");
+  }
+  if(Movimiento_Bits(n) == true){
     LCD_Select();
     Bocina_Select(n);
-    delay(500);
+    delay(200);
   }
 
-    if(n == 15){
-    n = 0;
-  }else{
-    Serial.print("Value of n is ");
-    Serial.println(n);
 
-    n++;  
-  }
+    
 }
 
 bool Movimiento_Bits(int n){
+
   switch (n)
   {
   case 0:
@@ -217,7 +228,7 @@ bool Movimiento_Bits(int n){
   default:
     break;
   }
-  if(digitalRead(MUX_Y) == false){
+  if(digitalRead(MUX_Y) == HIGH){
     return true;
   }else{
     return false;
@@ -227,6 +238,7 @@ void LCD_Select(){
   switch (n)
   {
   case 0:
+    Serial.print("estas entrando??");
     combo0.Printlcd();
     break;
   case 1:
@@ -251,19 +263,22 @@ void Bocina_Select(int n){
   switch (n)
   {
   case 0:
-    combo0.PlayAudio();
+    Audio.play("meme1.wav");
+    combo0.PlayAudio(n);
     break;
   case 1:
-    combo1.PlayAudio();
+    Audio.play("meme2.wav");
+    combo1.PlayAudio(n);
     break;
   case 2:
-    combo2.PlayAudio();
+    Audio.play("meme3.wav");
+    combo2.PlayAudio(n);
     break;
   case 3:
-    combo3.PlayAudio();
+    combo3.PlayAudio(n);
     break;
   case 4:
-    combo4.PlayAudio();
+    combo4.PlayAudio(n);
     break;
 
   default:
