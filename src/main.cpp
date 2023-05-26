@@ -140,11 +140,10 @@ void setup() {
   lcd.backlight();
   lcd.home();
 
-  lcd.print("Hello world...");
+  lcd.print("Iniciando....");
   lcd.setCursor(0, 1);
-  lcd.print(" i ");
-  lcd.printByte(3);
-  lcd.print(" arduinos!");
+  lcd.print(" SS");
+  lcd.print(" Proyecto!");
   delay(5000);
   //displayKeyCodes();
   //SETUP SPEAKER
@@ -167,8 +166,8 @@ int n = 0;
 
 void loop() { 
   // put your main code here, to run repeatedly:
-  if(n <= 3){
-      Serial.print("Value of n is ");
+  if(n <= 16){
+    Serial.print("Value of n is ");
     Serial.println(n);
     n++;
   }else{
@@ -199,6 +198,39 @@ bool Movimiento_Bits(int n)
     break;
   case 4:
     transistor.WriteMux();
+    break;
+  case 5:
+    potenciometro.WriteMux();
+    break;
+  case 6:
+    fusible.WriteMux();
+    break;
+  case 7:
+    ic.WriteMux();
+    break;
+  case 8:
+    inductores.WriteMux();
+    break;
+  case 9:
+    interruptor.WriteMux();
+    break;
+  case 10:
+    motorDC.WriteMux();
+    break;
+  case 11:
+    oscilador.WriteMux();
+    break;
+  case 12:
+    regulador.WriteMux();
+    break;
+  case 13:
+    rele.WriteMux();
+    break;
+  case 14:
+    zener.WriteMux();
+    break;
+  case 15:
+    //add last 
     break;
 
   default:
