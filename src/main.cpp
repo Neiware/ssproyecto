@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <string.h>
 #include <LiquidCrystal_I2C.h> //library for communication I2C with LCD
 #include <TMRpcm.h> // library for SD and Speaker communicatios.
 #include <SPI.h>
@@ -227,22 +228,66 @@ void Bocina_Select(int n){
   switch (n)
   {
   case 0:
-    Audio.play("meme0.wav");
+    Audio.play("capacitor.wav");
     combo0.PlayAudio(n);
     break;
   case 1:
-    Audio.play("meme1.wav");
+    Audio.play("diodo.wav");
     combo1.PlayAudio(n);
     break;
   case 2:
-    Audio.play("meme2.wav");
+    Audio.play("led.wav");
     combo2.PlayAudio(n);
     break;
   case 3:
-    Audio.play("meme3.wav");
+    Audio.play("resistencia.wav");
     combo3.PlayAudio(n);
     break;
   case 4:
+    Audio.play("transistor.wav");  
+    combo4.PlayAudio(n);
+    break;
+  case 5:
+    Audio.play("potenciometro.wav");  
+    combo4.PlayAudio(n);
+    break;
+  case 6:
+    Audio.play("fusible.wav");  
+    combo4.PlayAudio(n);
+    break;
+  case 7:
+    Audio.play("IC.wav");
+    combo1.PlayAudio(n);
+    break;
+  case 8:
+    Audio.play("inductores.wav");
+    combo2.PlayAudio(n);
+    break;
+  case 9:
+    Audio.play("interruptor.wav");
+    combo3.PlayAudio(n);
+    break;
+  case 10:
+    Audio.play("motorDC.wav");  
+    combo4.PlayAudio(n);
+    break;
+  case 11:
+    Audio.play("oscilador.wav");  
+    combo4.PlayAudio(n);
+    break;
+  case 12:
+    Audio.play("reguladorDeVoltaje.wav");  
+    combo4.PlayAudio(n);
+    break;
+  case 13:
+    Audio.play("rele.wav");
+    combo3.PlayAudio(n);
+    break;
+  case 14:
+    Audio.play("zener.wav");  
+    combo4.PlayAudio(n);
+    break;
+  case 15:
     Audio.play("meme4.wav");  
     combo4.PlayAudio(n);
     break;
