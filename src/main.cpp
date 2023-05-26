@@ -155,7 +155,7 @@ int n = 0;
 
 void loop() { 
   // put your main code here, to run repeatedly:
-  if(n <= 2){
+  if(n <= 3){
       Serial.print("Value of n is ");
     Serial.println(n);
     n++;
@@ -203,7 +203,6 @@ void LCD_Select()
   switch (n)
   {
   case 0:
-    Serial.print("estas entrando??");
     combo0.Printlcd();
     break;
   case 1:
@@ -228,21 +227,23 @@ void Bocina_Select(int n){
   switch (n)
   {
   case 0:
-    Audio.play("meme1.wav");
+    Audio.play("meme0.wav");
     combo0.PlayAudio(n);
     break;
   case 1:
-    Audio.play("meme2.wav");
+    Audio.play("meme1.wav");
     combo1.PlayAudio(n);
     break;
   case 2:
-    Audio.play("meme3.wav");
+    Audio.play("meme2.wav");
     combo2.PlayAudio(n);
     break;
   case 3:
+    Audio.play("meme3.wav");
     combo3.PlayAudio(n);
     break;
   case 4:
+    Audio.play("meme4.wav");  
     combo4.PlayAudio(n);
     break;
 
