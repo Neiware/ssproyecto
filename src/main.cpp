@@ -36,7 +36,7 @@ LiquidCrystal_I2C lcd(0x27,20,4);
 TMRpcm Audio; //object for TMRpcm library
 
 //----------------OWN CLASS -----------------------//
-class Combos
+class Componentes
 {
 private:
   /* data */
@@ -47,7 +47,7 @@ private:
   
 public:
 //constructor parametros A,B,C,D definen en binario el numero de combinacion. 
-  Combos(bool A_,bool B_,bool C_,bool D_, String audioFile_, String lcdText_)
+  Componentes(bool A_,bool B_,bool C_,bool D_, String audioFile_, String lcdText_)
   {
     A = A_;
     B = B_;
@@ -85,11 +85,22 @@ public:
 //OBJECT CALL lcd using external library
 
 
-Combos combo0(LOW,LOW,LOW,LOW,"Audio0","Resistencia0");
-Combos combo1(HIGH,LOW,LOW,LOW,"Audio1","Resistencia1");
-Combos combo2(LOW,HIGH,LOW,LOW,"Audio2","Resistencia2");
-Combos combo3(HIGH,HIGH,LOW,LOW,"Audio3","Resistencia3");
-Combos combo4(LOW,LOW,HIGH,LOW,"Audio4","Resistencia4");
+Componentes capacitor(LOW,LOW,LOW,LOW,"capacitor.wav","capacitor");
+Componentes diodo(HIGH,LOW,LOW,LOW,"diodo.wav","diodo");
+Componentes led(LOW,HIGH,LOW,LOW,"led.wav","led");
+Componentes resistencia(HIGH,HIGH,LOW,LOW,"resistencia.wav","resistencia");
+Componentes transistor(LOW,LOW,HIGH,LOW,"transistor.wav","transistor");
+Componentes potenciometro(HIGH,LOW,HIGH,LOW,"potenciometro.wav","Potenciometro");
+Componentes fusible(LOW,HIGH,HIGH,LOW,"fusible.wav","fusible");
+Componentes ic(HIGH,HIGH,HIGH,LOW,"IC.wav","IC");
+Componentes inductores(LOW,LOW,LOW,HIGH,"inductores.wav","inductores");
+Componentes interruptor(HIGH,LOW,LOW,HIGH,"interruptor.wav","interruptor");
+Componentes motorDC(LOW,HIGH,LOW,HIGH,"motorDC.wav","motorDC");
+Componentes oscilador(HIGH,HIGH,LOW,HIGH,"oscilador.wav","oscilador");
+Componentes regulador(LOW,LOW,HIGH,HIGH,"reguladorDeVolaje.wav","regulador");
+Componentes rele(HIGH,LOW,HIGH,HIGH,"rele.wav","rele");
+Componentes zener(LOW,HIGH,HIGH,HIGH,"zener.wav","zener");
+//add the 16 component
 
 //-----------FUNCTIONS--------------//
 // display all keycodes
@@ -175,19 +186,19 @@ bool Movimiento_Bits(int n)
   switch (n)
   {
   case 0:
-    combo0.WriteMux();
+    capacitor.WriteMux();
     break;
   case 1:
-    combo1.WriteMux();
+    diodo.WriteMux();
     break;
   case 2:
-    combo2.WriteMux();
+    led.WriteMux();
     break;
   case 3:
-    combo3.WriteMux();
+    resistencia.WriteMux();
     break;
   case 4:
-    combo4.WriteMux();
+    transistor.WriteMux();
     break;
 
   default:
@@ -204,19 +215,52 @@ void LCD_Select()
   switch (n)
   {
   case 0:
-    combo0.Printlcd();
+    capacitor.Printlcd();
     break;
   case 1:
-    combo1.Printlcd();
+    diodo.Printlcd();
     break;
   case 2:
-    combo2.Printlcd();
+    led.Printlcd();
     break;
   case 3:
-    combo3.Printlcd();
+    resistencia.Printlcd();
     break;
   case 4:
-    combo4.Printlcd();
+    transistor.Printlcd();
+    break;
+  case 5:
+    potenciometro.Printlcd();
+    break;
+  case 6:
+    fusible.Printlcd();
+    break;
+  case 7:
+    ic.Printlcd();
+    break;
+  case 8:
+    inductores.Printlcd();
+    break;
+  case 9:
+    interruptor.Printlcd();
+    break;
+  case 10:
+    motorDC.Printlcd();
+    break;
+  case 11:
+    oscilador.Printlcd();
+    break;
+  case 12:
+    regulador.Printlcd();
+    break;
+  case 13:
+    rele.Printlcd();
+    break;
+  case 14:
+    zener.Printlcd();
+    break;
+  case 15:
+    //add last 
     break;
 
   default:
@@ -229,67 +273,68 @@ void Bocina_Select(int n){
   {
   case 0:
     Audio.play("capacitor.wav");
-    combo0.PlayAudio(n);
+    capacitor.PlayAudio(n);
     break;
   case 1:
     Audio.play("diodo.wav");
-    combo1.PlayAudio(n);
+    diodo.PlayAudio(n);
     break;
   case 2:
     Audio.play("led.wav");
-    combo2.PlayAudio(n);
+    led.PlayAudio(n);
     break;
   case 3:
     Audio.play("resistencia.wav");
-    combo3.PlayAudio(n);
+    resistencia.PlayAudio(n);
     break;
   case 4:
     Audio.play("transistor.wav");  
-    combo4.PlayAudio(n);
+    transistor.PlayAudio(n);
     break;
   case 5:
     Audio.play("potenciometro.wav");  
-    combo4.PlayAudio(n);
+    potenciometro.PlayAudio(n);
     break;
   case 6:
     Audio.play("fusible.wav");  
-    combo4.PlayAudio(n);
+    fusible.PlayAudio(n);
     break;
   case 7:
     Audio.play("IC.wav");
-    combo1.PlayAudio(n);
+    ic.PlayAudio(n);
     break;
   case 8:
     Audio.play("inductores.wav");
-    combo2.PlayAudio(n);
+    inductores.PlayAudio(n);
     break;
   case 9:
     Audio.play("interruptor.wav");
-    combo3.PlayAudio(n);
+    interruptor.PlayAudio(n);
     break;
   case 10:
     Audio.play("motorDC.wav");  
-    combo4.PlayAudio(n);
+    motorDC.PlayAudio(n);
     break;
   case 11:
     Audio.play("oscilador.wav");  
-    combo4.PlayAudio(n);
+    oscilador.PlayAudio(n);
     break;
   case 12:
     Audio.play("reguladorDeVoltaje.wav");  
-    combo4.PlayAudio(n);
+    regulador.PlayAudio(n);
     break;
   case 13:
     Audio.play("rele.wav");
-    combo3.PlayAudio(n);
+    rele.PlayAudio(n);
     break;
   case 14:
     Audio.play("zener.wav");  
-    combo4.PlayAudio(n);
+    zener.PlayAudio(n);
     break;
   case 15:
-    Audio.play("meme4.wav");  
-    combo4.PlayAudio(n);
+  //add last case
+   // Audio.play("meme4.wav");  
+   // .PlayAudio(n);
     break;
 
   default:
